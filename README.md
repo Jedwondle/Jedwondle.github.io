@@ -1,4 +1,5 @@
-Jedwondle.github.io
-===================
+Open Storefront is a cataloging system for software related assets (Applications, Services, Specification...etc). 
 
-The current 'production' version of the Open-Storefront project.
+Developed at Space Dynamics Laboratory 
+
+Licensed under Apache V2
