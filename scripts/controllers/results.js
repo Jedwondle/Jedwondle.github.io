@@ -1,59 +1,73 @@
 'use strict';
 
-/* global isEmpty, setupPopovers */
+/* global isEmpty, setupPopovers, openClick:true, openWindowToggle, moveButtons, fullClick, openFiltersToggle */
 
-app.controller('ResultsCtrl', ['$scope', 'tempData', 'business', '$filter', '$timeout', function ($scope, tempData, Business, $filter, $timeout) {
+app.controller('ResultsCtrl', ['$scope', 'tempData', 'business', '$filter', '$timeout', '$location', function ($scope, tempData, Business, $filter, $timeout, $location) {
   tempData.restoreState();
   $scope.searchGroup = tempData.getData();
   tempData.setData($scope.searchGroup);
 
   $scope._scopename = 'results';
   $scope.searchKey = null;
-  $scope.searchType = null;
+  $scope.searchCode = null;
+  $scope.searchTitle = null;
   $scope.showSearch = false;
   $scope.isPage1 = true;
-  $scope.weHaveData = true;
   $scope.filters = Business.getFilters();
   $scope.orderProp = '';
   $scope.query = '';
 
+  $scope.noDataMessage = 'You have filtered out all of the results.';
+
   $scope.total = Business.getData();
+  $scope.watches = Business.getWatches();
+  $scope.showWatchButton = false;
+
 
   $scope.filteredTotal = $scope.total;
   $scope.data = $scope.total;
-  $scope.rowsPerPage = 20;
+  $scope.rowsPerPage = 10;
   $scope.pageNumber = 1;
   $scope.maxPageNumber = Math.ceil($scope.data.length / $scope.rowsPerPage);
-  $scope.details = $scope.data[0];
-
-  // if (!isEmpty($scope.searchGroup)) {
-  //   if (!isEmpty($scope.searchGroup.category)) {
-  //     $scope.searchKey = $scope.searchGroup.category;
-  //     $scope.showSearch = true;
-  //     $scope.searchType = 'category';
-  //   } else if (!isEmpty($scope.searchGroup.type)) {
-  //     $scope.searchKey = $scope.searchGroup.type;
-  //     $scope.showSearch = true;
-  //     $scope.searchType = 'type';
-  //   } else if (!isEmpty($scope.searchGroup.state)) {
-  //     $scope.searchKey = $scope.searchGroup.state;
-  //     $scope.showSearch = true;
-  //     $scope.searchType = 'state';
-  //   } else if (!isEmpty($scope.searchGroup.search)) {
-  //     if ($scope.searchGroup.search[0] !== null) {
-  //       $scope.searchKey = $scope.searchGroup.search;
-  //       $scope.showSearch = true;
-  //       $scope.searchType = 'search';
-  //     } else {
-  //       $scope.searchKey = 'DOALLSEARCH';
-  //       $scope.showSearch = true;
-  //       $scope.searchType = 'all';
-  //     }
-  //   }
-  // }
+  $scope.details = null;
+  $scope.showDetails = false;
 
 
 
+  if (!isEmpty($scope.searchGroup)) {
+    var keys = _.pluck($scope.filters, 'key');
+    if (_.contains(keys, $scope.searchGroup[0].key)) {
+
+      $scope.searchKey = $scope.searchGroup[0].key;
+      $scope.searchCode = $scope.searchGroup[0].code;
+      $scope.showSearch = true;
+      $scope.searchTitle =  _.where(_.where($scope.filters, {'key': $scope.searchGroup[0].key})[0].collection, {'code': $scope.searchGroup[0].code})[0].type;
+    } else if ($scope.searchGroup[0].key === 'search') {
+      $scope.searchKey = 'DOALLSEARCH';
+      $scope.showSearch = true;
+      $scope.searchTitle = $scope.searchGroup[0].code;
+    } else {
+      $scope.searchKey = 'DOALLSEARCH';
+      $scope.showSearch = true;
+      $scope.searchTitle = 'All';
+    }
+  } else {
+    $scope.searchKey = 'DOALLSEARCH';
+    $scope.showSearch = true;
+    $scope.searchTitle = 'All';
+  }
+
+  $scope.$on('$viewContentLoaded', function(){
+    $timeout(function() {
+      moveButtons($('#showPageRight'), $('.page1'));
+      moveButtons($('#showPageLeft'), $('.page2'));
+      if (fullClick === 0) {
+        if ($(window).width() >= 768) {
+          openFiltersToggle();
+        }
+      }
+    }, 100);
+  });
 
   /* global buttonOpen, buttonClose */
   $scope.doButtonOpen = function() {
@@ -65,6 +79,7 @@ app.controller('ResultsCtrl', ['$scope', 'tempData', 'business', '$filter', '$ti
   };
 
   $scope.$watch('pageNumber',function(val, old){ /* jshint unused:false */
+
     $scope.pageNumber = parseInt(val);
     if ($scope.pageNumber < 1) {
       $scope.pageNumber = 1;
@@ -74,7 +89,7 @@ app.controller('ResultsCtrl', ['$scope', 'tempData', 'business', '$filter', '$ti
     }
 
     var page = $scope.pageNumber;
-    if (page < 1 || page === '' || isNaN(page)){
+    if (page < 1 || page === '' || isNaN(page) || page === null){
       page = 1;
     }
 
@@ -92,8 +107,12 @@ app.controller('ResultsCtrl', ['$scope', 'tempData', 'business', '$filter', '$ti
   });
 
   $scope.$watch('rowsPerPage',function(val, old){ /* jshint unused:false */
+    var rowPP = $scope.rowsPerPage;
+    if (rowPP < 1 || rowPP === '' || isNaN(rowPP) || rowPP === null){
+      rowPP = 1;
+    }
     $scope.pageNumber = 1;
-    $scope.maxPageNumber = Math.ceil($scope.filteredTotal.length / $scope.rowsPerPage);
+    $scope.maxPageNumber = Math.ceil($scope.filteredTotal.length / rowPP);
     $scope.applyFilters();
   });
 
@@ -123,6 +142,7 @@ app.controller('ResultsCtrl', ['$scope', 'tempData', 'business', '$filter', '$ti
 
 
   $scope.updateDetails = function(id){
+    $scope.showWatchButton = !!!(_.where($scope.watches, {'id': id}).length);
     if (!openClick) {
       openWindowToggle();
     }
@@ -131,6 +151,31 @@ app.controller('ResultsCtrl', ['$scope', 'tempData', 'business', '$filter', '$ti
     {
       $scope.details = temp;
     }
+    $scope.showDetails = true;
+  };
+
+  $scope.addToWatches = function(id){
+    var a = _.findWhere($scope.watches, {'id': id});
+    if (a === undefined  || isEmpty(a)) {
+      $scope.watches.push({'id': id, 'watched': true});
+    }
+    $scope.showWatchButton = false;
+    Business.setWatches($scope.watches);
+  };
+
+  $scope.removeFromWatches = function(id){
+    var a = _.findWhere($scope.watches, {'id': id});
+
+    if (a !== undefined  && !isEmpty(a)) {
+      $scope.watches.splice(_.indexOf($scope.watches, a), 1);
+    }
+
+    $scope.showWatchButton = true;
+    Business.setWatches($scope.watches);
+  };
+
+  $scope.viewWatches = function () {
+    $location.path('/userprofile');
   };
 
   $scope.applyFilters = function() {
@@ -139,7 +184,7 @@ app.controller('ResultsCtrl', ['$scope', 'tempData', 'business', '$filter', '$ti
     $scope.filteredTotal = results;
 
     $scope.maxPageNumber = Math.ceil($scope.filteredTotal.length / $scope.rowsPerPage);
-    if (($scope.pageNumber - 1) * $scope.rowsPerPage <= $scope.filteredTotal.length) {
+    if (($scope.pageNumber - 1) * $scope.rowsPerPage >= $scope.filteredTotal.length) {
       $scope.pageNumber = 1;
     }
     $scope.data = $scope.filteredTotal.slice((($scope.pageNumber - 1) * $scope.rowsPerPage), ($scope.pageNumber * $scope.rowsPerPage));

@@ -1,6 +1,6 @@
 'use strict';
 
-/* global setupTypeahead*/
+/* global setupTypeahead, resetAnimGlobals*/
 
 var app = angular
 .module('openstorefrontApp', [
@@ -15,9 +15,9 @@ var app = angular
     templateUrl: 'views/main.html',
     controller: 'MainCtrl'
   })
-  .when('/user', {
-    templateUrl: 'views/user.html',
-    controller: 'UserCtrl'
+  .when('/userprofile', {
+    templateUrl: 'views/userprofile.html',
+    controller: 'UserProfileCtrl'
   })
   .when('/results', {
     templateUrl: 'views/results.html',
@@ -28,13 +28,13 @@ var app = angular
   });
 });
 
-
-
 app.run(['$rootScope', 'tempData', '$location', '$route', function ($rootScope, tempData, $location, $route) {
   // Re-apply these functions on route-change
   $rootScope.$on('$routeChangeStart', function (event, next, current) {/* jshint unused:false */
+    if (current && current.loadedTemplateUrl === 'views/results.html') {
+      resetAnimGlobals();
+    }
     if (sessionStorage.restorestate === 'true') {
-      console.log('Session storage', sessionStorage);
       //let everything know we need to restore state
       $rootScope.$broadcast('restorestate');
       sessionStorage.restorestate = false;
@@ -45,9 +45,10 @@ app.run(['$rootScope', 'tempData', '$location', '$route', function ($rootScope, 
       });
     }, 500);
   });
-
+  
   $rootScope.goToSearchWithSearch = function(search){ /*jshint unused:false*/
-    tempData.setData({'type': [], 'category': [], 'state': [], 'search': [search]});
+
+    tempData.setData([ { 'key': 'search', 'code': search } ]);
     tempData.saveState();
     if ($location.path() === '/results') {
       $route.reload();

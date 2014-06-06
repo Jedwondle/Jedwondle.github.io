@@ -1,8 +1,13 @@
 'use strict';
 
-/* global setPageHeight, setPageMargin, setRightOpenWidth, openClick:true, 
-fullClick:true, filtClick:true, resetStyles, floatBelowTop, moveButtons,
-unStretchFilterbutton */
+/* global setPageHeight, setPageMargin, setRightOpenWidth, 
+fullClick:true, filtClick:true, floatBelowTop, moveButtons,
+setLeftOpenWidth, resetAnimations, resetAnimGlobals*/
+
+/**********************
+* This handles the animation for the filter button.
+* on-hover it shifts into view, and then shifts out.
+**********************/
 $('#filtersButton').on('mouseenter', function() {
   if (!filtClick) {
     $('.filtersButton').stop(true,true).animate({'margin-left':'0px'}, 200, function(){});
@@ -14,66 +19,78 @@ $('#filtersButton').on('mouseleave', function() {
   }
 });
 
-$(document).ready(function(){
+/*********************
+* This handles the empty # of rows per page
+* and empty page number bug
+*********************/
+$('.pagination :input').on('blur', function() {
 
-
-  var details = $('.page2');
-  var results = $('.page1');
-  var filters = $('.filters');
-  if ($(window).width() < 767) {
-    if (!fullClick) {
-      unStretchFilterbutton();
-      resetStyles(details);
-      resetStyles(results);
-      resetStyles(filters);
-      openClick = 0;
-      fullClick = 0;
-      filtClick = 0;
-    }
+  if (isNaN($(this).val()) || $(this).val() === '') {
+    $(this).val($(this).data('default'));
+    $(this).trigger('input');
   }
-  setPageHeight($('.resultsContainer'));
-  setRightOpenWidth(details);
-  setPageHeight(filters);
-  setPageHeight(results);
-  setPageHeight(details);
-  setPageMargin(details);
-
-  $('#filtersButton').data('offset', '0');
-  floatBelowTop($('#filtersButton'), 3000, $('.page1'), 53);
-  moveButtons($('#showPageRight'), $('.page1'));
 });
-$(window).resize(function() {
-  var details = $('.page2');
-  var results = $('.page1');
-  var filters = $('.filters');
-  if ($(window).width() < 767) {
-    if (!fullClick) {
-      unStretchFilterbutton();
-      resetStyles(details);
-      resetStyles(results);
-      resetStyles(filters);
-      openClick = 0;
-      fullClick = 0;
-      filtClick = 0;
-    }
-  } else if (!fullClick){
-    setPageMargin(details);
-  }
-  setRightOpenWidth(details);
-  setPageHeight($('.resultsContainer'));
-  setPageHeight(filters);
-  setPageHeight(results);
-  setPageHeight(details);
 
-  $('#filtersButton').data('offset', '0');
-  floatBelowTop($('#filtersButton'), 3000, $('.page1'), 53);
-  moveButtons($('#showPageRight'), $('.page1'));
+/*********************
+* This disables scrolling so that when you drag select, it doesn't scroll
+* down the results page.
+*********************/
+$('.pagination').on('mouseleave', function(){
+  var html = $('.page1');
+  html.css('overflow', 'auto');
 });
+
+$('.pagination').on('mouseenter', function(){
+  var html = $('.page1');
+  html.css('overflow', 'hidden');
+});
+
+/*********************
+* These croll functions adjust the different buttons that should move with the
+* scroll action on the different pages.
+*********************/
 $('.page1').scroll(function() {
-  floatBelowTop($('#filtersButton'), 3000, $('.page1'), 53);
+  floatBelowTop($('#filtersButton'), 3000, $('.page1'), 52);
   moveButtons($('#showPageRight'), this);
-  // setPageHeight($('.resultsContainer'));
 });
+
 $('.page2').scroll(function() {
   moveButtons($('#showPageLeft'), this);
+});
+
+/*********************
+* This reszies the paged divs in order to maintain the correct view
+*********************/
+var resizeAnimations = function () {
+  var details = $('.page2');
+  var results = $('.page1');
+  var filters = $('.filters');
+
+  if ($(window).width() < 767) {
+    if (!fullClick) {
+      resetAnimations(details, results, filters);
+      resetAnimGlobals();
+    }
+  }
+  setPageHeight($('.resultsContainer'), 0);
+  setRightOpenWidth(details);
+  setLeftOpenWidth(results);
+  setPageHeight(filters, 0);
+  setPageHeight(results, 40);
+  setPageHeight(details, 0);
+  setPageMargin(details, 40);
+
+  $('#filtersButton').data('offset', '0');
+  floatBelowTop($('#filtersButton'), 3000, $('.page1'), 52);
+  moveButtons($('#showPageRight'), $('.page1'));
+  moveButtons($('#showPageLeft'), $('.page2'));
+};
+
+$(document).ready(function(){
+  //resize the animations when we load the page
+  resizeAnimations();
+});
+$(window).resize(function() {
+  //resize the animations when the window size changes
+  resizeAnimations();
 });

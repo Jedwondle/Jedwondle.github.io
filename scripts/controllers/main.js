@@ -14,20 +14,22 @@ app.controller('MainCtrl', ['$scope', 'business', 'tempData', '$location', '$roo
   $scope.categoriesTitle  = 'Browse Categories';
   $scope.statesTitle      = 'Browse States';
 
+  $scope.watches          = Business.getWatches();
+
   $scope.goToSearchWithType = function(type){ /*jshint unused:false*/
-    tempData.setData({'type': [ type ], 'category': [], 'state': [], 'search': []});
+    tempData.setData([ { 'key': 'type', 'code': type } ]);
     tempData.saveState();
     $location.path('/results');
   };
 
   $scope.goToSearchWithCategory = function(type){ /*jshint unused:false*/
-    tempData.setData({'type': [], 'category': [type], 'state': [], 'search': []});
+    tempData.setData([ { 'key': 'categories', 'code': type } ]);
     tempData.saveState();
     $location.path('/results');
   };
 
   $scope.goToSearchWithState = function(type){ /*jshint unused:false*/
-    tempData.setData({'type': [], 'category': [], 'state': [ type ], 'search': []});
+    tempData.setData([ { 'key': 'conformanceState', 'code': type } ]);
     tempData.saveState();
     $location.path('/results');
   };
@@ -37,9 +39,10 @@ app.controller('MainCtrl', ['$scope', 'business', 'tempData', '$location', '$roo
   });
 
   $scope.goToSearchWithSearch = function(search){ /*jshint unused:false*/
-    tempData.setData({'type': [], 'category': [], 'state': [], 'search': [search]});
+    tempData.setData([ { 'key': 'search', 'code': search } ]);
     tempData.saveState();
     $location.path('/results');
   };
+
 
 }]);
