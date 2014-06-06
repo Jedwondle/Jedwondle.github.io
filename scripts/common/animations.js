@@ -464,7 +464,7 @@ var buttonOpen = function() {
         fullDetailsToggle();
       }
     } else {
-      openWindowToggle();
+      openClick = 1;
       fullDetailsToggle();
     }
   }
@@ -496,7 +496,7 @@ var buttonClose = function() {
   else {
     if (openClick) {
       if (fullClick) {
-        fullDetailsToggle();
+        fullClick = 0;
         openWindowToggle();
       } else {
         openWindowToggle();
