@@ -166,6 +166,7 @@ var unStretchFilterbutton = function() {
 * params: windowWidth -- an integer value detailing the window width
 **********************/
 var openDetails = function(results, details, windowWidth) {
+  details.css({'display': 'inherit'});
   var offset = $(window).height() - $('.top').height() - 40;
   setPageMargin(details, -offset);
   var width = 400;
@@ -203,7 +204,7 @@ var closeDetails = function(results, details, windowWidth) {
   details.stop(true, true).animate({
     'width': '0px',
     'margin-left': '100%'
-  }, 200 , function() { details.css({'width': '100%'}); });
+  }, 200 , function() { details.css({'width': '100%', 'display': 'none'}); });
 };
 
 
@@ -215,6 +216,7 @@ var closeDetails = function(results, details, windowWidth) {
 * params: windowWidth -- an integer value detailing the window width
 **********************/
 var openFullDetails = function(results, details, windowWidth) {
+  details.css({'display': 'inherit'});
   results.stop(true, true).animate({
     'width': '0px',
   }, 200 , function() {
