@@ -3,7 +3,7 @@
 /* global isEmpty, setupPopovers, openClick:true, openWindowToggle, moveButtons,
 fullClick, openFiltersToggle, buttonOpen, buttonClose */
 
-app.controller('ResultsCtrl', ['$scope', 'localCache', 'business', '$filter', '$timeout', '$location', function ($scope, localCache, Business, $filter, $timeout, $location) {
+app.controller('ResultsCtrl', ['$scope', 'localCache', 'business', '$filter', '$timeout', '$location', '$rootScope', function ($scope, localCache, Business, $filter, $timeout, $location, $rootScope) {
   // So far we're using the tempData factory, but we could easily change this 
   // to use the localCache factory that has more functions and capabilities
   // and then combine it with our business factory since that was their original
@@ -26,6 +26,8 @@ app.controller('ResultsCtrl', ['$scope', 'localCache', 'business', '$filter', '$
   $scope.filters            = Business.getFilters();
   $scope.total              = Business.getData();
   $scope.watches            = Business.getWatches();
+
+  
 
   if ($scope.searchGroup[0] === null) {
     $scope.searchGroup[0]   = { 'key': 'all', 'code': '' };
@@ -73,8 +75,11 @@ app.controller('ResultsCtrl', ['$scope', 'localCache', 'business', '$filter', '$
       $scope.searchKey          = $scope.searchGroup[0].key;
       $scope.searchCode         = $scope.searchGroup[0].code;
       $scope.showSearch         = true;
-      $scope.searchGroupItem    = _.where($scope.filters, {'key': $scope.searchGroup[0].key})[0];
-      $scope.searchColItem      = _.where($scope.searchGroupItem.collection, {'code': $scope.searchGroup[0].code})[0];
+      $scope.searchGroupItem    = _.where($scope.filters, {'key': $scope.searchKey})[0];
+      console.log("item", $scope.searchGroupItem);
+      
+      $scope.searchColItem      = _.where($scope.searchGroupItem.collection, {'code': $scope.searchCode})[0];
+      console.log("item", $scope.searchColItem);
       $scope.searchType         = $scope.searchGroupItem.name;
       $scope.searchTitle        = $scope.searchType + ', ' + $scope.searchColItem.type;
       $scope.modalTitle         = $scope.searchType + ', ' + $scope.searchColItem.type;
@@ -304,5 +309,9 @@ app.controller('ResultsCtrl', ['$scope', 'localCache', 'business', '$filter', '$
       setupPopovers();
     }, 300);
   };
+
+  $rootScope.$on('$descModal', function(event) {
+    // re-initialize the modal content here if we must
+  });
 }]);
 
