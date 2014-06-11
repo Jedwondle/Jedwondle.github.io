@@ -43,6 +43,19 @@ var substringMatcher = function(objs) {
   };
 };
 
+
+$('.typeahead').on("keypress", function() {
+  $(this).trigger('input').trigger('change').trigger('keydown');
+})
+
+$('.typeahead').on("change", function() {
+  $(this).trigger('input').trigger('change').trigger('keydown');
+})
+
+$('.typeahead').on("blur", function() {
+  $(this).trigger('input').trigger('change').trigger('keydown');
+})
+
 /*****************************
 * This function is used for the typeahead setup.
 *****************************/
