@@ -12,13 +12,4 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
--->
-<div ng-if="nav.bars.length" class="modal-header-override">
-  <ul class="nav nav-tabs">
-    <li ng-repeat="item in nav.bars" ng-class="{active: nav.current == item.title, firstNav: $first}" >
-      <a href="javascript: void(0)" ng-click="nav.current = item.title" data-toggle="tab">{{item.title}}</a>
-    </li>
-  </ul>
-</div>
-
-<h4 ng-if="!nav.bars.length" class="modal-title" id="myModalLabel">{{modalTitle}}</h4>
+--><div ng-if="nav.bars.length" class="modal-header-override"><ul class="nav nav-tabs"><li ng-repeat="item in nav.bars" ng-class="{active: nav.current == item.title, firstNav: $first}"><a href="javascript: void(0)" ng-click="nav.current = item.title" data-toggle="tab">{{item.title}}</a></li></ul></div><h4 ng-if="!nav.bars.length" class="modal-title" id="myModalLabel">{{modalTitle}}</h4>
