@@ -8,12 +8,13 @@
   overflow: hidden;
   height: 100%;
   margin-bottom:-3px;
+  margin-left: -2px;
 }
 .toolsContent {
   display: inline-block;
   vertical-align: top;
   width: 100%;
-  margin-left: -255px;
+  margin-left: -260px;
   padding-left: 250px;
 }
 
