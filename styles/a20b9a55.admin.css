@@ -10,3 +10,7 @@
   display: inline-block;
   vertical-align: top;
 }
+
+.nav-pills > li {
+  float: left;
+}
