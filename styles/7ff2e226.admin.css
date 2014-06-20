@@ -12,5 +12,5 @@
 }
 
 .nav-pills > li {
-  float: left;
+  clear: both;
 }

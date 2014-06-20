@@ -109,55 +109,46 @@ ul.abn-tree i.indented {
   cursor: pointer;
 }
 ul.nav.abn-tree li.level-1 {
-  width: 100%;
   /*position: relative;*/
   /*left: 0px;*/
 }
 ul.nav.abn-tree li.level-2 {
   margin-left:20px;
-  width: calc(100% - 20px);
   /*position: relative;*/
   /*left: 20px;*/
 }
 ul.nav.abn-tree li.level-3 {
   margin-left: 40px;
-  width: calc(100% - 40px);
   /*position: relative;*/
   /*left: 40px;*/
 }
 ul.nav.abn-tree li.level-4 {
   margin-left:60px;
-  width: calc(100% - 60px);
   /*position: relative;*/
   /*left: 60px;*/
 }
 ul.nav.abn-tree li.level-5 {
   margin-left:80px;
-  width: calc(100% - 80px);
   /*position: relative;*/
   /*left: 80px;*/
 }
 ul.nav.abn-tree li.level-6 {
   margin-left:100px;
-  width: calc(100% - 100px);
   /*position: relative;*/
   /*left: 100px;*/
 }
 ul.nav.nav-list.abn-tree li.level-7 {
   margin-left:120px;
-  width: calc(100% - 120px);
   /*position: relative;*/
   /*left: 120px;*/
 }
 ul.nav.nav-list.abn-tree li.level-8 {
   margin-left:140px;
-  width: calc(100% - 140px);
   /*position: relative;*/
   /*left: 140px;*/
 }
 ul.nav.nav-list.abn-tree li.level-9 {
   margin-left:160px;
-  width: calc(100% - 160px);
   /*position: relative;*/
   /*left: 160px;*/
 }
