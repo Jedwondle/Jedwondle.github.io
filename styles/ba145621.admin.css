@@ -1,4 +1,4 @@
-.tools {
+.adminTools {
   position:relative;
   z-index: 1;
   background: white;
@@ -19,7 +19,7 @@
   padding-left: 250px;
 }
 
-.nav-pills > li {
+.treeNav .nav-pills > li {
   clear: both;
 }
 
