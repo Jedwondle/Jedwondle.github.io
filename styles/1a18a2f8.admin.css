@@ -28,3 +28,8 @@
   margin-left: -276px;
   padding-left: 275px;
 }
+
+html, body,
+.fullHeight {
+  height: 100%
+}
