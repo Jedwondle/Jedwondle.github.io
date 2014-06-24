@@ -206,7 +206,9 @@ limitations under the License.
       </table>              
     </div>
   </div>
-</div> --><!-- 
+</div> 
+
+
 <div class="component-div-title">Review Summary</div>
 <div class="container component-div">
   <div class="col-sm-12">
@@ -287,7 +289,53 @@ limitations under the License.
       </p>
     </div>
   </div>
-  <!-- Start of right column for user review --></div><div class="container component-div"><div class="col-sm-12"><h3 style="margin-top: 0px"><strong>A bad IDE &mdash;</strong><raty class="large-raty" read-only="" id="star{{$index}}" style="min-width:110px; height: 100%" score="1" number="5" path="images/raty/" data-container="star{{$index}}" data-toggle="popover" data-content="Average rating: {{details.stats.averageRating}} of {{details.stats.numberRatings}}<br>Comments: {{details.stats.comments}}<br>Views: {{details.stats.views}}"></raty><strong style="font-size: 14px">&dash;I would NOT recommend this component&dash;</strong><div class="pull-right"><button class="btn btn-primary" ng-click="toggleclass('detailsReview-2', 'detailsReview')"><i class="fa fa-expand"></i></button></div></h3></div><div class="col-sm-6"><p style="font-size: 12px"><strong>Bobby</strong><br><strong>Location:</strong> USSTRATCOM<br><strong>Role:</strong> Program Manager<br><strong>Usage Experiance:</strong> 3 Months<br>May 14, 2012</p></div><div class="col-sm-6"><div class="col-sm-6"><p><strong>Pros</strong><br><a href="">Compact</a>, <a href="">Documented</a></p></div><div class="col-sm-6"><p><strong>Cons</strong><br><a href="">Unreliable</a>, <a href="">Steep learning curve</a></p></div></div><div class="col-sm-12"><div id="detailsReview-2" class="detailsPadding detailsReview"><p><strong>Comments:</strong> This is my negative review commentary. I hated my experience with this product. I do not reccomend it!!!</p></div></div><div class="col-sm-12"><button class="btn btn-primary" ng-click="setupModal('fullWidthModal').then(openModal('descModal')); ">See All Reviews <i class="fa fa-star-half-full"></i></button></div></div>--> <!--     <div class="component-div-title">Relations</div>
+</div>
+<div class="container component-div">
+  <div class="col-sm-12">
+    <H3 style="margin-top: 0px"><strong>A bad IDE &mdash;</strong>
+      <raty class="large-raty" read-only id="star{{$index}}" style="min-width:110px; height: 100%; " score="1" number="5" path="images/raty/" data-container="star{{$index}}" data-toggle="popover" data-content="Average rating: {{details.stats.averageRating}} of {{details.stats.numberRatings}}<br>Comments: {{details.stats.comments}}<br>Views: {{details.stats.views}}">
+      </raty>
+      <strong style="font-size: 14px;">&dash;I would NOT recommend this component&dash;</strong>
+      <div class="pull-right"><button class='btn btn-primary' ng-click="toggleclass('detailsReview-2', 'detailsReview')"><i class='fa fa-expand'></i></button></div>
+    </H3>
+  </div>
+  <div class="col-sm-6">
+    <p style="font-size: 12px;">
+      <strong>Bobby</strong><br />
+      <strong>Location: </strong> USSTRATCOM <br />
+      <strong>Role: </strong> Program Manager <br />
+      <strong>Usage Experiance: </strong> 3 Months<br />
+      May 14, 2012
+    </p>
+  </div>
+  <div class="col-sm-6">
+    <div class="col-sm-6">
+      <p>
+        <strong>Pros</strong><br />
+        <a href="">Compact</a>,
+        <a href="">Documented</a>
+      </p>
+    </div>
+    <div class="col-sm-6">
+      <p>
+        <strong>Cons</strong><br />
+        <a href="">Unreliable</a>,
+        <a href="">Steep learning curve</a>
+      </p>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <div id="detailsReview-2" class="detailsPadding detailsReview">
+      <p><strong>Comments: </strong> 
+        This is my negative review commentary. I hated my experience with this product. I do not reccomend it!!!
+      </p>
+    </div>
+  </div>
+  <div class="col-sm-12">
+    <button class="btn btn-primary" ng-click="setupModal('fullWidthModal').then(openModal('descModal')); ">See All Reviews <i class="fa fa-star-half-full"></i></button>
+  </div>
+</div>
+ --><!--     <div class="component-div-title">Relations</div>
     <div class="container component-div">
       <div class="col-sm-12">
         <div>
@@ -315,7 +363,46 @@ limitations under the License.
         </div>
       </div>
     </div>
- --><div class="component-div-title">Details</div><div class="container component-div"><div class="col-sm-12"><table class="table table-striped table-bordered"><tr><th style="width: 180px">Resource Type<td>{{details.type[0].code}}<tr><th style="width: 180px">Metadata Date<td>{{details.releaseDate}}<tr><th style="width: 180px">Metadata Created Date<td>{{details.postDate}}<tr><th style="width: 180px">Metadata Updated Date<td>{{details.updateDate}}<tr><th style="width: 180px">Reference Date(s)<td>5 Minutes<tr><th style="width: 180px">Access Level<td>WWW, SIPR, JSWIC<tr><th style="width: 180px">ITAR Export Approved<td>No<tr><th style="width: 180px">C&amp;A<td>Available</table></div></div><!-- <div class="component-div-title">Related Components</div>
+  --><!-- 
+  <div class="component-div-title">Details</div>
+  <div class="container component-div">
+    <div class="col-sm-12">
+      <table class="table table-striped table-bordered">
+        <tr>
+          <th style="width: 180px">Resource Type</th>
+          <td>{{details.type[0].code}}</td>
+        </tr>
+        <tr>
+          <th style="width: 180px">Metadata Date</th>
+          <td>{{details.releaseDate}}</td>
+        </tr>
+        <tr>
+          <th style="width: 180px">Metadata Created Date</th>
+          <td>{{details.postDate}}</td>
+        </tr>
+        <tr>
+          <th style="width: 180px">Metadata Updated Date</th>
+          <td>{{details.updateDate}}</td>
+        </tr>
+        <tr>
+          <th style="width: 180px">Reference Date(s)</th>
+          <td>5 Minutes</td>
+        </tr>
+        <tr>
+          <th style="width: 180px">Access Level</th>
+          <td>WWW, SIPR, JSWIC</td>
+        </tr>
+        <tr>
+          <th style="width: 180px">ITAR Export Approved</th>
+          <td>No</td>
+        </tr>
+        <tr>
+          <th style="width: 180px">C&amp;A</th>
+          <td>Available</td>
+        </tr>
+      </table>
+    </div>
+  </div> --><!-- <div class="component-div-title">Related Components</div>
     <div class="container component-div">
       <div class="col-sm-12">
         <div id="commentsDiv" class="detailSection">
@@ -335,4 +422,4 @@ limitations under the License.
         <button class="btn btn-primary">Post</button> 
       </div>
     </div>
- --><!-- This is the end of what you can take out. The rest must stay --><!-- ******************************************************************* --><!-- ******************************************************************* --></div><!-- End Page 2 --><!-- This is the results description modal (the contents are handled in this controller) --><div modal="" controller-name="ResultsCtrl" modalid="descModal"></div><!-- End Results Container --><link rel="stylesheet" href="styles/debf72a5.results.css">
+  --><!-- This is the end of what you can take out. The rest must stay --><!-- ******************************************************************* --><!-- ******************************************************************* --></div><!-- End Page 2 --><!-- This is the results description modal (the contents are handled in this controller) --><div modal="" controller-name="ResultsCtrl" modalid="descModal" modal-classes="classlist"></div></div><!-- End Results Container --><link rel="stylesheet" href="styles/debf72a5.results.css">
