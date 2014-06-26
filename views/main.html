@@ -12,4 +12,48 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
---><div class="banner">{{pageTitle}}</div><div class="search"><div class="center navSearch defaultSearch"><form ng-submit="goToSearch('search', searchKey)"><div class="pull-right searchBoxButton"><button type="submit" class="btn btn-primary pull-right"><i class="fa fa-search"></i></button></div><div class="navSearchBar"><input type="text" class="form-control searchBar" ng-model="searchKey" ng-options="key for key in typeahead" placeholder="Search" bs-typeahead="" autofocus></div></form></div></div><div class="row defaultContent defaultTitle"><div>Browse Components By:</div></div><div class="row defaultContent" ng-repeat="row in filters | partition:3"><div class="col-sm-4" ng-repeat="type in row" style="padding-right: 30px"><div class="defaultGroupTitle"><img ng-src="{{type.src}}" alt=""> {{type.name}}</div><ul class="groupItemList"><li ng-repeat="item in type.collection" class="groupItem imitateLink"><div ng-click="goToSearch(type.key, item.code);"><span class="item_bold"><span class="listing_short_title_text">{{item.type}}</span></span><div style="font-size: 12px; color: grey">{{item.desc}}</div></div><div ng-if="item.landing !== null && item.landing !== undefined"><small><button class="btn btn-primary" ng-click="goToLanding(item.landing, type.key, item.code)">Go to Landing Page</button></small> <small><button class="btn btn-primary" ng-click="goToSearch(type.key, item.code)">Go to Results Page</button></small></div></li></ul></div><hr><div class="defaultSpacer hidden-xs">&nbsp;</div></div><link rel="stylesheet" href="styles/882cf357.landing.css">
+--><div class="banner parallax-port" id="port"><!--   <img class="parallax-layer" src="../images/parallax2.png" alt=""/>
+  <img class="parallax-layer" src="../images/parallax3.png" alt=""/>
+  <img class="parallax-layer" src="../images/parallax.png" alt=""/> --><!-- 
+  <img class="parallax-layer" src="../images/0_sun.png" alt=""/>
+<img class="parallax-layer" src="../images/1_mountains.png" alt=""/>
+<img class="parallax-layer" src="../images/2_hill.png" alt=""/>
+<img class="parallax-layer" src="../images/3_wood.png" alt=""/>
+ --><img class="parallax-layer" src="../images/0.png" alt=""> <img class="parallax-layer" src="../images/1.png" alt=""> <img class="parallax-layer" src="../images/2.png" alt=""> <img class="parallax-layer" src="../images/3.png" alt=""></div><div style="" id="bannerContent"><div id="bannerTitle">{{pageTitle}}<hr><span>{{subTitle}}</span></div></div><div class="search"><div class="center navSearch defaultSearch"><form ng-submit="goToSearch('search', searchKey)"><div class="pull-right searchBoxButton"><button type="submit" class="btn btn-primary pull-right"><i class="fa fa-search"></i></button></div><div class="navSearchBar"><input type="text" class="form-control searchBar" ng-model="searchKey" ng-options="key for key in typeahead" placeholder="Search" bs-typeahead="" autofocus></div></form></div></div><script type="text/javascript">// jQuery(document).ready(function(){
+//   var target = jQuery("#target");
+//   setTimeout(function() {
+//     target
+//     .children('img')
+//     .parallax(
+//       { mouseport: target },
+//     { xparallax: 0.2, yparallax: 0.2 },     // Blue layer options
+//     { xparallax: 0.6, yparallax: 0.6 },     // Green layer options
+//     {}                                      // Red layer options
+//   //
+//   );
+//   }, 500);
+// });
+
+jQuery(document).ready(function(){
+  // Declare parallax on layers
+  setTimeout(function(){
+    var width = $('.banner').width();
+    var height = $('.banner').height();
+    console.log('width', width);
+    console.log('height', height);
+    
+    var i = 10;
+    var opacity = .3;
+    _.each($('.parallax-layer'), function(element) {
+      $(element).css('width', width + i + 'px');
+      $(element).css('height', height + i + 'px');
+      // $(element).css('height', height + 'px');
+      // $(element).css('opacity', opacity);
+      i = i + 50;
+      opacity = opacity + .1;
+    })
+    jQuery('.parallax-layer').parallax({
+      mouseport: jQuery("#port")
+    });
+  }, 500);
+});</script><div class="row defaultContent defaultTitle"><div>Browse Components By:</div></div><div class="row defaultContent" ng-repeat="row in filters | partition:3"><div class="col-sm-4" ng-repeat="type in row" style="padding-right: 30px"><div class="defaultGroupTitle"><img ng-src="{{type.src}}" alt=""> {{type.name}}</div><ul class="groupItemList"><li ng-repeat="item in type.collection" class="groupItem imitateLink"><div ng-click="goToSearch(type.key, item.code);"><span class="item_bold"><span class="listing_short_title_text">{{item.type}}</span></span><div style="font-size: 12px; color: grey">{{item.desc}}</div></div><div ng-if="item.landing !== null && item.landing !== undefined"><small><button class="btn btn-primary" ng-click="goToLanding(item.landing, type.key, item.code)">Go to Landing Page</button></small> <small><button class="btn btn-primary" ng-click="goToSearch(type.key, item.code)">Go to Results Page</button></small></div></li></ul></div><hr><div class="defaultSpacer hidden-xs">&nbsp;</div></div><link rel="stylesheet" href="styles/a8050a55.landing.css">
