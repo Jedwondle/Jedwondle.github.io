@@ -235,6 +235,10 @@ border-radius: 300px;
   margin-right: -20px;
   text-align: center;
 }
+.defaultGroupTitle .icon:hover{
+  background: orange;
+  color: white;
+}
 
 .defaultGroupTitle .icon i{
   font-size: 38px;
